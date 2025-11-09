@@ -76,7 +76,8 @@ namespace Fringe
                                                         const SystemParams& sysparams,
                                                         const std::string mode="all",
                                                         const std::vector<double>& mask={},
-                                                        const double thresh=3.0);
+                                                        const double thresh=3.0,
+                                                        const std::string platform="matlab");
 
     FSL_CORE_API bool LoadProjectionMParams(const std::string& filename, SystemParams& sysparams);
 

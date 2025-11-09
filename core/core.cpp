@@ -73,6 +73,7 @@ namespace Fringe
             
             wrap.data[y] = atan2(-M,D);
             if (wrap.data[y] < 0.0) wrap.data[y] += 2.0*M_PI;
+           
             
             if (cacuB) {
                 wrap.B[y] = hypot(-M,D)*2.0/step;
@@ -220,7 +221,8 @@ namespace Fringe
                                         const SystemParams& sysparams,
                                         const  std::string mode,
                                         const std::vector<double>& mask,
-                                        const double thresh)
+                                        const double thresh,
+                                        const std::string platform)
     {
         if (unwrap.data.empty()) {
             std::cerr << "Warning: empty unwrap.\n";
@@ -229,13 +231,13 @@ namespace Fringe
 
         std::vector<double> local_mask = mask;
 
-        //计算unwrapp中所有点
+        //caculate all points
         if (mode =="all") {
             local_mask.clear();
             local_mask.resize(unwrap.data.size(),1.0);
         }
 
-        //判断modulation模式下mask是否与unwrap大小一致
+        // mask == modulation
         if (mode == "modulation" && mask.size() != unwrap.data.size()){
             std::cerr << "Warning: mask size is not equal to unwrap size.\n";
             return createEmptyPointCloud();
@@ -265,13 +267,15 @@ namespace Fringe
             return createEmptyPointCloud();
         }
 
-
         PointCloud cloud;
         for (int i = 0; i < unwrap.data.size(); ++i) {
             if(local_mask[i] == 0.0) continue;
             Point p;
-            double vc = i / unwrap.cols + 1;      //cols 0-608 
-            double uc = i % unwrap.cols + 1;      // vc 1-800
+            
+            double bias = (platform == "matlab") ? 1.0 : 0.0;
+
+            double vc = i / unwrap.cols + bias;      //cols 0-608 
+            double uc = i % unwrap.cols + bias;      // vc 1-800
             
             //std::cout << "uc: " << uc << " vc: " << vc << "\n";
 
@@ -306,7 +310,7 @@ namespace Fringe
             return false;
         }
 
-        // 先读取所有参数到临时数组
+        // read all params to temp vector
         std::vector<double> all_params;
         double temp;
         while (profile >> temp) {
