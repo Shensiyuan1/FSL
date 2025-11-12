@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.18)
-cmake_policy(SET CMP0091 NEW)
+#cmake_policy(SET CMP0091 NEW)
 project(FSL VERSION 0.0.1 LANGUAGES CXX CUDA)
 
 # =======================================================
@@ -7,43 +7,58 @@ project(FSL VERSION 0.0.1 LANGUAGES CXX CUDA)
 # =======================================================
 option(BUILD_STATIC_LIBS "Build static libraries for all modules" OFF)
 option(CORE_STATIC "Build core library as static library" ${BUILD_STATIC_LIBS})
-option(USE_CUDA "Build with CUDA support" ON)
 option(CUDA_STATIC "Build CUDA libraries as static libraries" ${BUILD_STATIC_LIBS})
 
+option(USE_CUDA "Build with CUDA support" ON)
+# =======================================================
 #--- 3rdparty ---
+# =======================================================
 option(USE_QT "Enable Qt-based UI or module integration" OFF)
 option(USE_OPENCV "Enable OpenCV-based example and functionality" OFF)
-option(USE_EXAMPLE "Enable example programs" OFF)
+option(USE_EXAMPLE "Enable example programs" ON)
 
-
+# =======================================================
 # --- Compiler settings (MUST be after project()) ---
-set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+# =======================================================
+#set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")  #cuda static test use 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# =======================================================
 # --- core library ---
-add_subdirectory(core)
+# =======================================================
+add_subdirectory(module/core)
 
+# =======================================================
 # --- cuda library ---
+# =======================================================
 if(USE_CUDA)
-    add_subdirectory(cuda)
+    add_subdirectory(module/cuda)
 endif()
 
+# =======================================================
 # --- example programs ---
+# =======================================================
 if(USE_EXAMPLE)
     add_subdirectory(example)
 endif()
 
+# =======================================================
 # --- Installation public headers ---
+# =======================================================
 install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/
         DESTINATION include)
 
+# =======================================================        
 # --- Installation default path ---
+# =======================================================
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE PATH "Default install path" FORCE)
 endif()
 
+# =======================================================
 # --- cmake package config ---
+# =======================================================
 include(CMakePackageConfigHelpers)
 
 install(EXPORT FSLTargets

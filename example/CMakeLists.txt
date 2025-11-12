@@ -1,6 +1,8 @@
 
 message(STATUS "🔍 Checking for OpenCV in example module...")
-find_package(OpenCV QUIET)
+if(NOT DEFINED OpenCV_FOUND)
+    find_package(OpenCV QUIET)
+endif()
 
 if(NOT OpenCV_FOUND)
     message(WARNING "⚠️ OpenCV not found. Skipping example module build.")
@@ -13,10 +15,34 @@ message(STATUS "    Include: ${OpenCV_INCLUDE_DIRS}")
 
 add_subdirectory(StandPhaseShift)
 add_subdirectory(LutPhaseShift)
-add_subdirectory(HierarchicalUnwrap)
+add_subdirectory(HierarchicalUnwrap)    
+
+# --- QT Show Point Cloud ---
+if(NOT DEFINED Qt5_FOUND OR
+    NOT Qt5_Core_FOUND OR
+    NOT Qt5_Widgets_FOUND OR
+    NOT Qt5_Gui_FOUND OR
+    NOT Qt5_OpenGL_FOUND)
+
+    message(STATUS "🔍 Checking for Qt5 and required components...")
+    find_package(Qt5 COMPONENTS Core Widgets Gui OpenGL QUIET)
+
+    if(NOT Qt5_FOUND)
+        message(WARNING "⚠️ Qt5 or required components not found. Skipping Qt point cloud viewer.")
+        return() 
+    else()
+        message(STATUS "✅ Qt5 found with required components.")
+        message(STATUS "🔍 Qt5_DIR: ${Qt5_DIR}")
+        add_subdirectory(PointReconstruction)
+    endif()
+else()
+    message(STATUS "✅ Qt5 already found with required components.")
+    message(STATUS "🔍 Qt5_DIR: ${Qt5_DIR}")
+    add_subdirectory(PointReconstruction)
+endif()
 
 
-install(DIRECTORY calib DESTINATION bin)
+install(DIRECTORY config DESTINATION bin)
 install(DIRECTORY img   DESTINATION bin)
 
 # --- Installation OpenCV runtime DLL on windows ---
@@ -50,3 +76,4 @@ if(WIN32)
         message(WARNING "OpenCV world DLL not found at: ${OPENCV_WORLD_DLL}")
     endif()
 endif()
+
