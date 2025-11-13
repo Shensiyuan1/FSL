@@ -75,7 +75,6 @@ if(WIN32 AND Qt5_FOUND)
         libGLESv2.dll
         libEGL.dll
         D3Dcompiler_47.dll
-        opengl32sw.dll
     )
 
     foreach(dll ${QT_OPENGL_DLLS})
