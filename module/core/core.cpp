@@ -191,6 +191,11 @@ namespace Fringe
                 unwrap.data[n] = wraps[i].data[n] + 2.0*M_PI*round((ratio[i-1]*unwrap.data[n]-wraps[i].data[n])*scale);
             } 
         }
+
+        if (!wraps[wraps.size()-1].B.empty()) {
+            unwrap.B = wraps[wraps.size()-1].B;
+        }
+
         return unwrap;
     }
 
@@ -213,6 +218,9 @@ namespace Fringe
 
         for (int i = 0; i < projection.rows*projection.cols; ++i) {
             projection.data[i] = unwrap.data[i]*scale;
+        }
+        if (!unwrap.B.empty()) {
+            projection.B = unwrap.B;
         }
         return projection;
     }

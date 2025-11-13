@@ -1,6 +1,8 @@
 
 
 add_executable(PointReconstruction WIN32
+    PointCloudWidget.h
+    PointCloudWidget.cpp
     widget.h
     widget.cpp
     PointReconstruction.cpp
@@ -15,6 +17,7 @@ target_link_libraries(PointReconstruction PRIVATE ${OpenCV_LIBS})
 target_link_libraries(PointReconstruction PRIVATE Qt5::Core)
 target_link_libraries(PointReconstruction PRIVATE Qt5::Widgets) 
 target_link_libraries(PointReconstruction PRIVATE Qt5::Gui) 
+target_link_libraries(PointReconstruction PRIVATE Qt5::OpenGL)
 
 
 

@@ -7,6 +7,8 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <fsl/core.h>
+#include <opencv2/opencv.hpp>
+#include "PointCloudWidget.h"
 
 class PointWindow : public QWidget
 {
@@ -16,11 +18,14 @@ public:
     PointWindow(QWidget *parent = nullptr);
     ~PointWindow();
 
-    void PointCloudCaculate();
+    void SetSystemParams(Fringe::SystemParams &params);
+    Fringe::Phase UnwrapPhase();
 
 private:
     QLabel *cameraIntrinsicLabel;
     QLabel *projectionMLabel;
+    PointCloudWidget *pointCloudWidget;
+
 
 };
 
