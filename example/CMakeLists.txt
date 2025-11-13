@@ -21,11 +21,10 @@ add_subdirectory(HierarchicalUnwrap)
 if(NOT DEFINED Qt5_FOUND OR
     NOT Qt5_Core_FOUND OR
     NOT Qt5_Widgets_FOUND OR
-    NOT Qt5_Gui_FOUND OR
-    NOT Qt5_OpenGL_FOUND)
+    NOT Qt5_Gui_FOUND )
 
     message(STATUS "🔍 Checking for Qt5 and required components...")
-    find_package(Qt5 COMPONENTS Core Widgets Gui OpenGL QUIET)
+    find_package(Qt5 COMPONENTS Core Widgets Gui QUIET)
 
     if(NOT Qt5_FOUND)
         message(WARNING "⚠️ Qt5 or required components not found. Skipping Qt point cloud viewer.")

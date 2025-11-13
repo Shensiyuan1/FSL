@@ -27,6 +27,8 @@ PointCloudWidget::PointCloudWidget(QWidget *parent)
     setMouseTracking(true);
 
 
+
+
     model_.setToIdentity();
 
 }
@@ -46,7 +48,7 @@ void PointCloudWidget::setCameraIntrinsics(const Fringe::SystemParams& params, i
 void PointCloudWidget::initializeGL()
 {
     initializeOpenGLFunctions();
-
+    qDebug() << "OpenGL version:" << (const char*)glGetString(GL_VERSION);
 
     glEnable(GL_DEPTH_TEST);       // start depth
     glEnable(GL_PROGRAM_POINT_SIZE); // allow set point size

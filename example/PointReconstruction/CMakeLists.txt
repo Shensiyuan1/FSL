@@ -17,7 +17,6 @@ target_link_libraries(PointReconstruction PRIVATE ${OpenCV_LIBS})
 target_link_libraries(PointReconstruction PRIVATE Qt5::Core)
 target_link_libraries(PointReconstruction PRIVATE Qt5::Widgets) 
 target_link_libraries(PointReconstruction PRIVATE Qt5::Gui) 
-target_link_libraries(PointReconstruction PRIVATE Qt5::OpenGL)
 
 
 
@@ -71,5 +70,22 @@ if(WIN32 AND Qt5_FOUND)
         message(WARNING "⚠️ Qt5Gui.dll not found: ${QT_GUI_DLL}")
     endif()
 
+    #--- Qt5OpenGL.dll ---
+    set(QT_OPENGL_DLLS
+        libGLESv2.dll
+        libEGL.dll
+        D3Dcompiler_47.dll
+        opengl32sw.dll
+    )
+
+    foreach(dll ${QT_OPENGL_DLLS})
+        set(DLL_PATH "${QT5_ROOT_DIR}/bin/${dll}")
+        if(EXISTS "${DLL_PATH}")
+            install(FILES "${DLL_PATH}" DESTINATION bin)
+            message(STATUS "✅ ${dll} installed to bin")
+        else()
+            message(WARNING "⚠️ ${dll} not found: ${DLL_PATH}")
+        endif()
+    endforeach()
 
 endif()

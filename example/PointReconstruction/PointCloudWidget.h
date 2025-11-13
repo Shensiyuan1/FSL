@@ -12,6 +12,7 @@
 #include <QVector3D>
 #include <QMouseEvent>
 #include <QWheelEvent>
+#include <QOpenGLContext>
 
 #include <fsl/core.h>
 
