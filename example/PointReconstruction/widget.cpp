@@ -11,14 +11,14 @@ PointWindow::PointWindow(QWidget *parent)
     cameraIntrinsicLabel->setFont(QFont("Courier New", 10));
     cameraIntrinsicLabel->setTextInteractionFlags(Qt::TextSelectableByMouse);
     cameraIntrinsicLabel->setAlignment(Qt::AlignCenter);
-    cameraIntrinsicLabel->setFixedHeight(50);
+    //cameraIntrinsicLabel->setFixedHeight(50);
 
 
     projectionMLabel = new QLabel(this);
     projectionMLabel->setFont(QFont("Courier New", 10));
     projectionMLabel->setTextInteractionFlags(Qt::TextSelectableByMouse);
     projectionMLabel->setAlignment(Qt::AlignCenter);
-    projectionMLabel->setFixedHeight(50);
+    //projectionMLabel->setFixedHeight(50);
 
     QHBoxLayout* paramlayout = new QHBoxLayout();
     paramlayout->addStretch();
@@ -29,8 +29,8 @@ PointWindow::PointWindow(QWidget *parent)
     pointCloudWidget = new PointCloudWidget(this);
 
     QVBoxLayout* mainlayout = new QVBoxLayout(this);
-    mainlayout->addLayout(paramlayout);
-    mainlayout->addWidget(pointCloudWidget);
+    mainlayout->addLayout(paramlayout,1);
+    mainlayout->addWidget(pointCloudWidget,9);
     //mainlayout->addStretch();
 
     Fringe::SystemParams sysparams;

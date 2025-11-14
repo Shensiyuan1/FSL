@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.18)
 #cmake_policy(SET CMP0091 NEW)
-project(FSL VERSION 0.0.1 LANGUAGES CXX CUDA)
+project(FSL VERSION 0.0.1 LANGUAGES CXX)
 
 # =======================================================
 # --- Options (User Configurable Modules) ---
@@ -33,7 +33,15 @@ add_subdirectory(module/core)
 # --- cuda library ---
 # =======================================================
 if(USE_CUDA)
-    add_subdirectory(module/cuda)
+    find_package(CUDAToolkit QUIET) 
+    find_program(CUDA_COMPILER nvcc QUIET) 
+    if(CUDAToolkit_FOUND)
+        enable_language(CUDA)
+        message(STATUS "✅ CUDA found, building CUDA module")
+        add_subdirectory(module/cuda)
+    else()
+        message(WARNING "⚠️ CUDA not found, skipping CUDA module")
+    endif()
 endif()
 
 # =======================================================

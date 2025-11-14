@@ -71,13 +71,13 @@ if(WIN32 AND Qt5_FOUND)
     endif()
 
     #--- Qt5OpenGL.dll ---
-    set(QT_OPENGL_DLLS
+    set(QT5_OPENGL_DLLS
         libGLESv2.dll
         libEGL.dll
         D3Dcompiler_47.dll
     )
 
-    foreach(dll ${QT_OPENGL_DLLS})
+    foreach(dll ${QT5_OPENGL_DLLS})
         set(DLL_PATH "${QT5_ROOT_DIR}/bin/${dll}")
         if(EXISTS "${DLL_PATH}")
             install(FILES "${DLL_PATH}" DESTINATION bin)
