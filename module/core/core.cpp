@@ -2,20 +2,24 @@
 
 namespace Fringe
 {
-    Phase createEmptyPhase() 
+    namespace 
     {
-        Phase empty;
-        empty.rows = 0;
-        empty.cols = 0;
-        return empty;
-    }
+        Phase createEmptyPhase() 
+        {
+            Phase empty;
+            empty.rows = 0;
+            empty.cols = 0;
+            return empty;
+        }
 
-    PointCloud createEmptyPointCloud() 
-    {
-        PointCloud empty;
-        return empty;
-    }
+        PointCloud createEmptyPointCloud() 
+        {
+            PointCloud empty;
+            return empty;
+        }
 
+    }
+    
     Phase Standardphaseshift(const std::vector<RawImg>& imgs,bool cacuB)
     {
         if (imgs.empty()) {

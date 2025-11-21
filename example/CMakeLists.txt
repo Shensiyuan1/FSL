@@ -15,7 +15,8 @@ message(STATUS "    Include: ${OpenCV_INCLUDE_DIRS}")
 
 add_subdirectory(StandPhaseShift)
 add_subdirectory(LutPhaseShift)
-add_subdirectory(HierarchicalUnwrap)    
+add_subdirectory(HierarchicalUnwrap)  
+add_subdirectory(DualFreNTUnwrap)  
 
 # --- QT Show Point Cloud ---
 if(NOT DEFINED Qt5_FOUND OR
