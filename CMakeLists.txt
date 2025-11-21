@@ -5,7 +5,7 @@ project(FSL VERSION 0.0.1 LANGUAGES CXX)
 # =======================================================
 # --- Options (User Configurable Modules) ---
 # =======================================================
-option(BUILD_STATIC_LIBS "Build static libraries for all modules" OFF)
+option(BUILD_STATIC_LIBS "Build static libraries for all modules" ON)
 option(CORE_STATIC "Build core library as static library" ${BUILD_STATIC_LIBS})
 option(CUDA_STATIC "Build CUDA libraries as static libraries" ${BUILD_STATIC_LIBS})
 

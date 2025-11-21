@@ -6,10 +6,10 @@ set(CUDA_SOURCES
 
 if(CUDA_STATIC)
     add_library(cuda STATIC ${CUDA_SOURCES})
-    target_compile_definitions(cuda PRIVATE FSLCUDA_STATIC)
+    target_compile_definitions(cuda PRIVATE FSL_STATIC)
 else()
     add_library(cuda SHARED ${CUDA_SOURCES})
-    target_compile_definitions(cuda PRIVATE FSL_STATIC_DEFINE)
+    target_compile_definitions(cuda PRIVATE FSL_CUDA_EXPORTS)
 endif()
 
 set_target_properties(cuda PROPERTIES
@@ -28,9 +28,9 @@ target_link_libraries(cuda PUBLIC CUDA::cudart)
 
 install(TARGETS cuda
     EXPORT FSLTargets
-    RUNTIME DESTINATION bin
+    RUNTIME DESTINATION bin      
+    ARCHIVE DESTINATION lib       
     LIBRARY DESTINATION lib
-    ARCHIVE DESTINATION lib
 )
 
 add_library(FSL::CUDA ALIAS cuda)

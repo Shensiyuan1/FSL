@@ -6,7 +6,7 @@ set(CORE_SOURCES
 
 if(CORE_STATIC)
     add_library(core STATIC ${CORE_SOURCES})
-    target_compile_definitions(core PRIVATE FSL_STATIC_DEFINE)
+    target_compile_definitions(core PRIVATE FSL_STATIC)
     set_target_properties(core PROPERTIES OUTPUT_NAME "FSL_CORE")  # 建议去掉 _static
 
     target_include_directories(core

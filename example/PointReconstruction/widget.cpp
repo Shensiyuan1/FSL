@@ -38,6 +38,7 @@ PointWindow::PointWindow(QWidget *parent)
     Fringe::Phase unwrap = UnwrapPhase();
     Fringe::Phase pixel = Fringe::Phase2Projection(unwrap,57,912);
     Fringe::PointCloud cloud = Fringe::UnidirectionReconstruction(pixel,sysparams,"modulation",pixel.B,3.0,"matlab");
+    
     //bool succ = Fringe::Cloud2TxT(cloud,"./config/pointcloud.txt");
 
     std::cout << "Point count:" << cloud.points.size() << std::endl;

@@ -12,6 +12,10 @@ set_target_properties(PointReconstruction PROPERTIES AUTOMOC ON)
 set_target_properties(PointReconstruction PROPERTIES AUTOUIC ON)       
 set_target_properties(PointReconstruction PROPERTIES AUTORCC ON)        
 
+if (CORE_STATIC)
+    target_compile_definitions(PointReconstruction PRIVATE FSL_STATIC)
+endif()
+
 target_link_libraries(PointReconstruction PRIVATE FSL::CORE)
 target_link_libraries(PointReconstruction PRIVATE ${OpenCV_LIBS})
 target_link_libraries(PointReconstruction PRIVATE Qt5::Core)

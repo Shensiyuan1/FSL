@@ -12,7 +12,7 @@
 #define M_PI 3.14159265358979323846
 #endif
 
-#if defined(FSL_STATIC_DEFINE)
+#if defined(FSL_STATIC)
     #define FSL_CORE_API
 #elif defined(_WIN32)
     #if defined(FSL_CORE_EXPORTS)
@@ -94,6 +94,8 @@ namespace Fringe
     FSL_CORE_API Phase LUT4StepPhaseshift(const std::vector<RawImg>& imgs,bool cacuB,const LUTP& lut);
 
     FSL_CORE_API bool  Cloud2TxT(const PointCloud& cloud,std::string filename);
+
+
 
 }
 

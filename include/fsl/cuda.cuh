@@ -5,7 +5,7 @@
 #include "fsl/core.h"
 #include <chrono>  
 
-#if defined(FSL_STATIC_DEFINE)
+#if defined(FSL_STATIC)
     #define FSL_CUDA_API
 #elif defined(_WIN32)
     #if defined(FSL_CUDA_EXPORTS)
