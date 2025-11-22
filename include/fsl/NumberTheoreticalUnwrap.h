@@ -1,5 +1,5 @@
-#ifndef NumberTheoreticalUnwrap_h_
-#define NumberTheoreticalUnwrap_h_
+#ifndef NumberTheoreticalUnwrap_h
+#define NumberTheoreticalUnwrap_h
 
 #include <unordered_map>
 #include <fsl/core.h>
@@ -29,9 +29,14 @@ namespace Fringe
 {
 
     
+
+
+
     FSL_CORE_API std::unordered_map<int, int> DualFreNumberTheoreticalLUT(int highFre,int lowFre);
 
     FSL_CORE_API Phase DualFreNumberTheoreticalUnwrap(const std::vector<Phase>& wraps, const std::unordered_map<int, int>& lut,const int highFre,const int lowFre);
+
+    FSL_CORE_API std::pair<Phase,Phase> DualFreNumberTheoreticalUnwrapAdValue(const std::vector<Phase>& wraps, const std::unordered_map<int, int>& lut,const int highFre,const int lowFre);
 
 }
 

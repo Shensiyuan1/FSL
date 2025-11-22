@@ -90,10 +90,49 @@ namespace Fringe
             unwrap.data[i] = value;
         }
 
+        if (!wraps[wraps.size()-1].B.empty()) {
+            unwrap.B = wraps[wraps.size()-1].B;
+        }
 
         return unwrap;
         
     }
+
+    std::pair<Phase,Phase> DualFreNumberTheoreticalUnwrapAdValue(const std::vector<Phase>& wraps, const std::unordered_map<int, int>& lut,const int highFre,const int lowFre)
+    {
+        if (wraps.empty() || wraps.size() != 2)
+        {
+            std::cerr << "Warning: invalid args.\n";
+            return std::make_pair(createEmptyPhase(),createEmptyPhase());
+        }
+
+        Phase unwrap;
+        unwrap.rows = wraps[0].rows;
+        unwrap.cols = wraps[0].cols;
+        unwrap.data = wraps[0].data;
+
+        Phase Value;
+        Value.rows = wraps[0].rows;
+        Value.cols = wraps[0].cols;
+        Value.data = wraps[0].data;
+
+        for(int i = 0;i < unwrap.data.size();i++)
+        {
+            int key = static_cast<int>(round((highFre * wraps[1].data[i] - lowFre * wraps[0].data[i]) / (2*M_PI)));
+            int value = getLutValue(lut,key);
+            Value.data[i] = key;
+            unwrap.data[i] = value;
+        }
+
+        if (!wraps[wraps.size()-1].B.empty()) {
+            unwrap.B = wraps[wraps.size()-1].B;
+        }
+
+        return std::make_pair(unwrap,Value);
+
+    }
+    
+
 
     
 

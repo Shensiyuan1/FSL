@@ -3,6 +3,7 @@
 set(CORE_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/core.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/NumberTheoreticalUnwrap.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/unwrap.cpp
 )
 
 if(CORE_STATIC)

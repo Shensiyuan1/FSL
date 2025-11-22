@@ -49,8 +49,16 @@ int main()
 
     std::unordered_map<int,int> lut = Fringe::DualFreNumberTheoreticalLUT(14,57);
 
-     // --- unwrap phase calculation ---
-    Fringe::Phase unwrap = Fringe::DualFreNumberTheoreticalUnwrap(wraps,lut,14,57);
+    // --- unwrap phase calculation ---
+    //Fringe::Phase unwrap = Fringe::DualFreNumberTheoreticalUnwrap(wraps,lut,14,57);
+
+    // cpp 17
+    //auto [unwrap, Value] = Fringe::DualFreNumberTheoreticalUnwrapAdValue(wraps,lut,14,57);
+
+    //
+    auto result = Fringe::DualFreNumberTheoreticalUnwrapAdValue(wraps,lut,14,57);
+    Fringe::Phase unwrap = result.first;
+    Fringe::Phase Value = result.second;
 
     cv::Mat w3Img(w3.rows, w3.cols, CV_64F, w3.data.data());
     w3Img.convertTo(w3Img, CV_8U, 255.0/2.0/M_PI);
@@ -69,6 +77,11 @@ int main()
     cv::imshow("unwrap", unwrapImg);
     cv::waitKey(0);
 
+    cv::Mat valueimg(Value.rows, Value.cols, CV_64F, Value.data.data());
+    cv::minMaxLoc(valueimg, &minVal, &maxVal);
+    cv::normalize(valueimg, valueimg, 0, 255, cv::NORM_MINMAX, CV_8UC1);
+    cv::imshow("Value", valueimg);
+    cv::waitKey(0);
 
 
     return 0;
