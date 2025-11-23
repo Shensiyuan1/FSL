@@ -2,7 +2,7 @@
 #define UNWRAP_H 
 
 #include <unordered_map>
-#include <fsl/core.h>
+#include "fsl/utils.h"
 #include <cmath>
 #include <cstdlib>
 #include <string>
@@ -27,7 +27,16 @@
 namespace Fringe
 {
 
+    // =======================================
+    // Temporal phase unwrap
+    // =======================================
+    FSL_CORE_API Phase HierarchicalUnwrap(const std::vector<Phase>& wraps,double* ratio,const int ratio_count);
 
+    FSL_CORE_API std::unordered_map<int, int> DualFreNumberTheoreticalLUT(int highFre,int lowFre);
+
+    FSL_CORE_API Phase DualFreNumberTheoreticalUnwrap(const std::vector<Phase>& wraps, const std::unordered_map<int, int>& lut,const int highFre,const int lowFre);
+
+    FSL_CORE_API std::pair<Phase,Phase> DualFreNumberTheoreticalUnwrapAdValue(const std::vector<Phase>& wraps, const std::unordered_map<int, int>& lut,const int highFre,const int lowFre);
 
     // =======================================
     // Space phase unwrap

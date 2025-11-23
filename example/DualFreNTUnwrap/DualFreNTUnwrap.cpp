@@ -1,5 +1,4 @@
-#include <fsl/NumberTheoreticalUnwrap.h>
-#include <fsl/unwrap.h>
+#include <fsl/core.h>
 #include <opencv2/opencv.hpp>
 
 
@@ -74,21 +73,6 @@ int main()
     auto segNumber = sr.second;
 
     Fringe::optPhaseBYvalue(unwrap,Value,segment,segNumber);
-
-    sr = Fringe::segphase(unwrap,unwrap.B,"modulation",3);
-    segment = sr.first;
-    segNumber = sr.second;
-
-    Fringe::optPhaseBYvalue(unwrap,Value,segment,segNumber);
-
-
-    sr = Fringe::segphase(unwrap,unwrap.B,"modulation",3);
-    segment = sr.first;
-    segNumber = sr.second;
-
-    Fringe::optPhaseBYvalue(unwrap,Value,segment,segNumber);
-
-
 
 
     cv::Mat w3Img(w3.rows, w3.cols, CV_64F, w3.data.data());

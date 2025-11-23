@@ -1,4 +1,4 @@
-#include "fsl/core.h"
+#include "fsl/utils.h"
 
 namespace Fringe
 {
@@ -174,35 +174,7 @@ namespace Fringe
 
     }
 
-    Phase HierarchicalUnwrap(const std::vector<Phase>& wraps,double* ratio,const int ratio_count)
-    {
-        if (wraps.empty() || !ratio || ratio_count < 1 ||
-        ratio_count + 1 != static_cast<int>(wraps.size()))
-        {
-            std::cerr << "Warning: invalid args.\n";
-            return createEmptyPhase();
-        }
-
-        Phase unwrap;
-        unwrap.rows = wraps[0].rows;
-        unwrap.cols = wraps[0].cols;
-        unwrap.data = wraps[0].data;
-        
-        const double scale = 1.0/(2.0*M_PI);
-
-        for (int i = 1; i < wraps.size(); ++i) {
-            for (int n = 0; n < unwrap.data.size(); ++n) {
-                unwrap.data[n] = wraps[i].data[n] + 2.0*M_PI*round((ratio[i-1]*unwrap.data[n]-wraps[i].data[n])*scale);
-            } 
-        }
-
-        if (!wraps[wraps.size()-1].B.empty()) {
-            unwrap.B = wraps[wraps.size()-1].B;
-        }
-
-        return unwrap;
-    }
-
+    
     Phase Phase2Projection(const Phase& unwrap,const double level,const int projection_pixel)
     {
         if (unwrap.data.empty()) {

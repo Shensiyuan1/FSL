@@ -1,15 +1,14 @@
 # core/CMakeLists.txt
 
 set(CORE_SOURCES
-    ${CMAKE_CURRENT_SOURCE_DIR}/core.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/NumberTheoreticalUnwrap.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/utils.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/unwrap.cpp
 )
 
 if(CORE_STATIC)
     add_library(core STATIC ${CORE_SOURCES})
     target_compile_definitions(core PRIVATE FSL_STATIC)
-    set_target_properties(core PROPERTIES OUTPUT_NAME "FSL_CORE")  # 建议去掉 _static
+    set_target_properties(core PROPERTIES OUTPUT_NAME "FSL_CORE")  
 
     target_include_directories(core
         PUBLIC
