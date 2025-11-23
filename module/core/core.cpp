@@ -241,41 +241,36 @@ namespace Fringe
             return createEmptyPointCloud();
         }
 
-        std::vector<double> local_mask = mask;
+        const size_t N = unwrap.data.size();
+        std::vector<double> local_mask;
 
-        //caculate all points
-        if (mode =="all") {
-            local_mask.clear();
-            local_mask.resize(unwrap.data.size(),1.0);
+        if (mode == "all") {
+            local_mask.assign(N, 1.0);
         }
-
-        // mask == modulation
-        if (mode == "modulation" && mask.size() != unwrap.data.size()){
-            std::cerr << "Warning: mask size is not equal to unwrap size.\n";
-            return createEmptyPointCloud();
-        }
-
-        if(mode == "modulation" && mask.size() == unwrap.data.size())
-        {
-            for (int i = 0; i < unwrap.data.size(); ++i) {
-                if (mask[i] < thresh) {
-                    local_mask[i] = 0.0;
-                }
+        else if (mode == "unwrap") {
+            local_mask.reserve(N);
+            for (size_t i = 0; i < N; ++i) {
+                local_mask[i] = (unwrap.data[i] != 0.0) ? 1.0 : 0.0;
             }
         }
+        else if (mode == "modulation" || mode == "mask") {
+            if (mask.size() != N) {
+                std::cerr << "Warning: mask size (" << mask.size()
+                        << ") does not match unwrap size (" << N << ").\n";
+                return createEmptyPointCloud();
+            }
 
-        if (mode == "unwrap") {
-            local_mask.clear();
-            local_mask.resize(unwrap.data.size(),1.0);
-            for (int i = 0; i < unwrap.data.size(); ++i) {
-                if (unwrap.data[i] == 0.0) {
-                    local_mask[i] = 0.0;
+            local_mask.reserve(N);
+            if (mode == "modulation") {
+                for (size_t i = 0; i < N; ++i) {
+                    local_mask[i] = (mask[i] >= thresh) ? 1.0 : 0.0;
                 }
+            } else { 
+                local_mask = mask;
             }
         }
-
-        if (mode == "mask" && mask.size() != unwrap.data.size()){
-            std::cerr << "Warning: mask size is not equal to unwrap size.\n";
+        else {
+            std::cerr << "Error: unsupported mode '" << mode << "'. Supported: all, unwrap, modulation, mask.\n";
             return createEmptyPointCloud();
         }
 

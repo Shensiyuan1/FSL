@@ -1,4 +1,5 @@
 #include <fsl/NumberTheoreticalUnwrap.h>
+#include <fsl/unwrap.h>
 #include <opencv2/opencv.hpp>
 
 
@@ -60,6 +61,36 @@ int main()
     Fringe::Phase unwrap = result.first;
     Fringe::Phase Value = result.second;
 
+    cv::Mat unwrapImg1(unwrap.rows, unwrap.cols, CV_64F, unwrap.data.data());
+    double minVal, maxVal;
+    cv::minMaxLoc(unwrapImg1, &minVal, &maxVal);
+    cv::normalize(unwrapImg1, unwrapImg1, 0, 255, cv::NORM_MINMAX, CV_8UC1);
+    cv::imshow("unwrap", unwrapImg1);
+    cv::waitKey(0);
+
+
+    auto sr = Fringe::segphase(unwrap,unwrap.B,"modulation",3);
+    Fringe::Phase segment = sr.first;
+    auto segNumber = sr.second;
+
+    Fringe::optPhaseBYvalue(unwrap,Value,segment,segNumber);
+
+    sr = Fringe::segphase(unwrap,unwrap.B,"modulation",3);
+    segment = sr.first;
+    segNumber = sr.second;
+
+    Fringe::optPhaseBYvalue(unwrap,Value,segment,segNumber);
+
+
+    sr = Fringe::segphase(unwrap,unwrap.B,"modulation",3);
+    segment = sr.first;
+    segNumber = sr.second;
+
+    Fringe::optPhaseBYvalue(unwrap,Value,segment,segNumber);
+
+
+
+
     cv::Mat w3Img(w3.rows, w3.cols, CV_64F, w3.data.data());
     w3Img.convertTo(w3Img, CV_8U, 255.0/2.0/M_PI);
     cv::imshow("w3", w3Img);
@@ -71,7 +102,6 @@ int main()
     cv::waitKey(0);
 
     cv::Mat unwrapImg(unwrap.rows, unwrap.cols, CV_64F, unwrap.data.data());
-    double minVal, maxVal;
     cv::minMaxLoc(unwrapImg, &minVal, &maxVal);
     cv::normalize(unwrapImg, unwrapImg, 0, 255, cv::NORM_MINMAX, CV_8UC1);
     cv::imshow("unwrap", unwrapImg);
@@ -81,6 +111,12 @@ int main()
     cv::minMaxLoc(valueimg, &minVal, &maxVal);
     cv::normalize(valueimg, valueimg, 0, 255, cv::NORM_MINMAX, CV_8UC1);
     cv::imshow("Value", valueimg);
+    cv::waitKey(0);
+
+    cv::Mat semgnetimg(Value.rows, Value.cols, CV_64F, segment.data.data());
+    cv::minMaxLoc(semgnetimg, &minVal, &maxVal);
+    cv::normalize(semgnetimg, semgnetimg, 0, 255, cv::NORM_MINMAX, CV_8UC1);
+    cv::imshow("Value", semgnetimg);
     cv::waitKey(0);
 
 

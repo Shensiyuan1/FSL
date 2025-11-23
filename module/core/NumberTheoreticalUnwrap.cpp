@@ -121,7 +121,7 @@ namespace Fringe
             int key = static_cast<int>(round((highFre * wraps[1].data[i] - lowFre * wraps[0].data[i]) / (2*M_PI)));
             int value = getLutValue(lut,key);
             Value.data[i] = key;
-            unwrap.data[i] = value;
+            unwrap.data[i] = wraps[1].data[i] + 2*M_PI*value;
         }
 
         if (!wraps[wraps.size()-1].B.empty()) {

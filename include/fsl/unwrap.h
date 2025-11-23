@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include <string>
 #include <iostream>
+#include <queue>
 
 
 #if defined(FSL_STATIC)
@@ -28,7 +29,12 @@ namespace Fringe
 
 
 
-    std::pair<Phase,std::unordered_map<int,int>> segphase(const Phase& phase,const std::vector<double>& mask,std::string mode = "mask",int thresh = 3);
+    // =======================================
+    // Space phase unwrap
+    // =======================================
+    FSL_CORE_API std::pair<Phase,std::unordered_map<int,int>> segphase(const Phase& phase,const std::vector<double>& mask,std::string mode = "mask",int thresh = 3,double seg_thresh = M_PI);
+
+    FSL_CORE_API void  optPhaseBYvalue(Phase &phase,Phase& value,Phase& segment,const std::unordered_map<int,int>& lut);
 
 }
 
