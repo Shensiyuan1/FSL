@@ -2,7 +2,9 @@
 
 set(CORE_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/utils.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/wrap.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/unwrap.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/reconstruction.cpp
 )
 
 if(CORE_STATIC)

@@ -63,39 +63,6 @@ namespace Fringe
     };
 
 
-    FSL_CORE_API Phase Standardphaseshift(const std::vector<RawImg>& imgs,bool cacuB=false);
-
-    FSL_CORE_API Phase CacuQuality(const Phase& wrap,bool fourOeight=false);
-
-    FSL_CORE_API Phase MD2Phase(const Phase& M,const Phase& D,bool cacuB=false);
-
-    FSL_CORE_API Phase Phase2Projection(const Phase& unwrap,const double level,const int projection_pixel);
-
-    FSL_CORE_API PointCloud UnidirectionReconstruction(const Phase& unwrap,
-                                                        const SystemParams& sysparams,
-                                                        const std::string mode="all",
-                                                        const std::vector<double>& mask={},
-                                                        const double thresh=3.0,
-                                                        const std::string platform="matlab");
-
-    FSL_CORE_API bool LoadProjectionMParams(const std::string& filename, SystemParams& sysparams);
-
-    FSL_CORE_API bool LoadProjectionParams(const std::string& filename, SystemParams& sysparams);
-
-    FSL_CORE_API bool LoadCameraParams(const std::string& filename, SystemParams& sysparams);
-
-    FSL_CORE_API bool ThreeStepLUTGenerate(LUTP& lut);
-
-    FSL_CORE_API bool FourStepLUTGenerate(LUTP& lut);
-
-    FSL_CORE_API Phase LUT3StepPhaseshift(const std::vector<RawImg>& imgs,bool cacuB,const LUTP& lut);
-
-    FSL_CORE_API Phase LUT4StepPhaseshift(const std::vector<RawImg>& imgs,bool cacuB,const LUTP& lut);
-
-    FSL_CORE_API bool  Cloud2TxT(const PointCloud& cloud,std::string filename);
-
-
-
 }
 
 
