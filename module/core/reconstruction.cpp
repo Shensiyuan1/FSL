@@ -1,4 +1,4 @@
-#include "fsl/reconstruction.h"
+#include "fsl/core/reconstruction.h"
 
 namespace Fringe
 {

@@ -2,13 +2,13 @@
 #define CORE_H
 
 //utils module
-#include "utils.h"
+#include "core/utils.h"
 // wrap module
-#include "wrap.h"
+#include "core/wrap.h"
 // unwrap module
-#include "unwrap.h"
+#include "core/unwrap.h"
 // reconstruction module
-#include "reconstruction.h"
+#include "core/reconstruction.h"
 
 
 
