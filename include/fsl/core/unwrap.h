@@ -45,6 +45,8 @@ namespace Fringe
 
     FSL_CORE_API void  optPhaseBYvalue(Phase &phase,Phase& value,Phase& segment,const std::unordered_map<int,int>& lut);
 
+    
+
 }
 
 

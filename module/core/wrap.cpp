@@ -278,7 +278,7 @@ namespace Fringe
 
         if (imgs.size() != 4)
         {
-            std::cerr << "Warning: LUT3StepPhaseshift requires 4 images.\n";
+            std::cerr << "Warning: LUT4StepPhaseshift requires 4 images.\n";
             return createEmptyPhase();
         }   
 
@@ -314,4 +314,6 @@ namespace Fringe
         return wrap;    
     }
 
+
+    
 }
